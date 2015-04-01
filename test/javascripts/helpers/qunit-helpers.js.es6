@@ -1,6 +1,11 @@
 /* global asyncTest */
 
+import sessionFixtures from 'fixtures/session-fixtures';
 import siteFixtures from 'fixtures/site_fixtures';
+
+function logIn() {
+  Discourse.User.resetCurrent(Discourse.User.create(sessionFixtures['/session/current.json'].current_user));
+}
 
 function integration(name, options) {
   module("Integration: " + name, {
@@ -13,8 +18,8 @@ function integration(name, options) {
           options.setup.call(this);
         }
 
-        if (options.user) {
-          Discourse.User.resetCurrent(Discourse.User.create(options.user));
+        if (options.loggedIn) {
+          logIn();
         }
 
         if (options.settings) {
@@ -61,4 +66,4 @@ function fixture(selector) {
   return $("#qunit-fixture");
 }
 
-export { integration, controllerFor, asyncTestDiscourse, fixture };
+export { integration, controllerFor, asyncTestDiscourse, fixture, logIn };

@@ -1,8 +1,4 @@
-integration("Header (Staff)", {
-  user: { username: 'test',
-          staff: true,
-          site_flagged_posts_count: 1 }
-});
+integration("Header (Staff)", { loggedIn: true });
 
 test("header", () => {
   visit("/");
